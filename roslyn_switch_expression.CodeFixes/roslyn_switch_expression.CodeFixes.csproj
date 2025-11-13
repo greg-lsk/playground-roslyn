@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <RootNamespace>roslyn_switch_expression</RootNamespace>
+	<LangVersion>latest</LangVersion>  
   </PropertyGroup>
 
   <ItemGroup>
