@@ -36,7 +36,7 @@ public class RoslynSwitchExpressionUnitTest
                 static void Main() { Console.WriteLine(4); }
             }";
 
-        var expected = VerifyCS.Diagnostic().WithLocation(5, 17).WithArguments("Main");
+        var expected = VerifyCS.Diagnostic().WithLocation(5, 17).WithArguments("static", "void", "Main", "()");
 
         await VerifyCS.VerifyAnalyzerAsync(test, expected);
     }
