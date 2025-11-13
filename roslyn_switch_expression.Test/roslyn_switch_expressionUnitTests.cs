@@ -12,15 +12,12 @@ namespace SwitchExpressionAnalyzer.Test
         [TestMethod]
         public async Task ExpressionBody_NoDiagnostic()
         {
-            var test = 
-            @"public class StreetValidationStrategy : EvaluationStrategy<string>
+            var test =
+            @"using System;
+
+            class Program
             {
-                public override Delegate Run(EvaluationAttribute evaluation) => evaluation switch 
-                {
-                  NotNull<string> => async Task (string subject) => await Console.WriteLine($""{subject} is null""),
-                  IsNotWhitespace => WhenWhitespace,
-                  ArbitraryMaxLength => OnLengthExceed
-                };
+                static void Main() => Console.WriteLine(4);
             }";
 
             await VerifyCS.VerifyAnalyzerAsync(test);
