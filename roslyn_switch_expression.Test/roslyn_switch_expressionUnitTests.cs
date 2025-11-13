@@ -9,51 +9,21 @@ namespace SwitchExpressionAnalyzer.Test
     [TestClass]
     public class RoslynSwitchExpressionUnitTest
     {
-        //No diagnostics expected to show up
         [TestMethod]
-        public async Task TestMethod1()
+        public async Task ExpressionBody_NoDiagnostic()
         {
-            var test = @"";
+            var test = 
+            @"public class StreetValidationStrategy : EvaluationStrategy<string>
+            {
+                public override Delegate Run(EvaluationAttribute evaluation) => evaluation switch 
+                {
+                  NotNull<string> => async Task (string subject) => await Console.WriteLine($""{subject} is null""),
+                  IsNotWhitespace => WhenWhitespace,
+                  ArbitraryMaxLength => OnLengthExceed
+                };
+            }";
 
             await VerifyCS.VerifyAnalyzerAsync(test);
-        }
-
-        //Diagnostic and CodeFix both triggered and checked for
-        [TestMethod]
-        public async Task TestMethod2()
-        {
-            var test = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
-    {
-        class {|#0:TypeName|}
-        {   
-        }
-    }";
-
-            var fixtest = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
-    {
-        class TYPENAME
-        {   
-        }
-    }";
-
-            var expected = VerifyCS.Diagnostic("roslyn_switch_expression").WithLocation(0).WithArguments("TypeName");
-            await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
         }
     }
 }
