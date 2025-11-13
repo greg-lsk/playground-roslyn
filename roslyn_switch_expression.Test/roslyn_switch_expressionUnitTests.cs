@@ -22,5 +22,22 @@ namespace SwitchExpressionAnalyzer.Test
 
             await VerifyCS.VerifyAnalyzerAsync(test);
         }
+
+
+        [TestMethod]
+        public async Task BlockBody_Diagnostic()
+        {
+            var test =
+            @"using System;
+
+            class Program
+            {
+                static void Main() { Console.WriteLine(4); }
+            }";
+
+            var expected = VerifyCS.Diagnostic().WithLocation(5, 17).WithArguments("Main");
+
+            await VerifyCS.VerifyAnalyzerAsync(test, expected);
+        }
     }
 }
