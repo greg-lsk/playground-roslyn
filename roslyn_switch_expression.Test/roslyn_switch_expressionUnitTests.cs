@@ -4,6 +4,7 @@ using VerifyCS = SwitchExpressionAnalyzer.Test.CSharpCodeFixVerifier<
     SwitchExpressionAnalyzer.SwitchExpressionAnalyzer,
     SwitchExpressionAnalyzer.SwitchExpressionCodeFixProvider>;
 
+
 namespace SwitchExpressionAnalyzer.Test
 {
     [TestClass]
