@@ -8,7 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace roslyn_switch_expression.Analyzer {
+namespace SwitchExpressionAnalyzer
+{
     using System;
     
     
