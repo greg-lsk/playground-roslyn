@@ -13,13 +13,7 @@ public class RoslynSwitchExpressionUnitTest
     [TestMethod]
     public async Task ExpressionBody_NoDiagnostic()
     {
-        var test =
-        @"using System;
-
-            class Program
-            {
-                static void Main() => Console.WriteLine(4);
-            }";
+        var test = _expressionBodyCode;
 
         await VerifyCS.VerifyAnalyzerAsync(test);
     }
@@ -28,16 +22,35 @@ public class RoslynSwitchExpressionUnitTest
     [TestMethod]
     public async Task BlockBody_Diagnostic()
     {
-        var test =
-        @"using System;
-
-            class Program
-            {
-                static void Main() { Console.WriteLine(4); }
-            }";
-
-        var expected = VerifyCS.Diagnostic().WithLocation(5, 17).WithArguments("static", "void", "Main", "()");
+        var test = _methodBodyCode;
+        var expected = VerifyCS.Diagnostic().WithLocation(5, 9).WithArguments("static", "void", "Main", "()");
 
         await VerifyCS.VerifyAnalyzerAsync(test, expected);
     }
+
+    [TestMethod]
+    public async Task BlockBody_DiagnosticAndFix()
+    {
+        var testCode = _methodBodyCode;
+        var fixedCode = _expressionBodyCode;
+        var expected = VerifyCS.Diagnostic().WithLocation(5, 9).WithArguments("static", "void", "Main", "()");
+
+        await VerifyCS.VerifyCodeFixAsync(testCode, expected, fixedCode);
+    }
+
+    private static readonly string _expressionBodyCode =
+    @"using System;
+
+    class Program
+    {
+        static void Main() => Console.WriteLine(4);
+    }";
+
+    private static readonly string _methodBodyCode =
+    @"using System;
+
+    class Program
+    {
+        static void Main() { Console.WriteLine(4); }
+    }";
 }
