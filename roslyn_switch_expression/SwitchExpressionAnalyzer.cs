@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 
@@ -40,16 +42,19 @@ namespace SwitchExpressionAnalyzer
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.EnableConcurrentExecution();
 
-            context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.NamedType);
+
+            context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.MethodDeclaration);
         }
 
-        private static void AnalyzeSymbol(SymbolAnalysisContext context)
+        private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
-            var namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
+            var methodDeclarationNode = (MethodDeclarationSyntax)context.Node;
 
-            if (namedTypeSymbol.Name.ToCharArray().Any(char.IsLower))
+            var hasExpressionBody = methodDeclarationNode.ChildNodes().Where(n => n is ArrowExpressionClauseSyntax).Count() > 0;
+
+            if (!hasExpressionBody)
             {
-                var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
+                var diagnostic = Diagnostic.Create(Rule, methodDeclarationNode.GetLocation(), methodDeclarationNode.Identifier);
 
                 context.ReportDiagnostic(diagnostic);
             }
