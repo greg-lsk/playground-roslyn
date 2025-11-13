@@ -50,7 +50,7 @@ namespace SwitchExpressionAnalyzer
         {
             var methodDeclarationNode = (MethodDeclarationSyntax)context.Node;
 
-            var hasExpressionBody = methodDeclarationNode.ChildNodes().Where(n => n is ArrowExpressionClauseSyntax).Count() > 0;
+            var hasExpressionBody = methodDeclarationNode.ExpressionBody != null;
 
             if (!hasExpressionBody)
             {
