@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="roslyn_switch_expression.CodeFixes/roslyn_switch_expression.CodeFixes.csproj" />
   <Project Path="roslyn_switch_expression.Test/roslyn_switch_expression.Test.csproj" />
-  <Project Path="roslyn_switch_expression/roslyn_switch_expression.csproj" />
+  <Project Path="roslyn_switch_expression/roslyn_switch_expression.Analyzer.csproj" />
 </Solution>

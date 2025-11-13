@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\roslyn_switch_expression.CodeFixes\roslyn_switch_expression.CodeFixes.csproj" />
-    <ProjectReference Include="..\roslyn_switch_expression\roslyn_switch_expression.csproj" />
+    <ProjectReference Include="..\roslyn_switch_expression\roslyn_switch_expression.Analyzer.csproj" />
   </ItemGroup>
 
 </Project>
