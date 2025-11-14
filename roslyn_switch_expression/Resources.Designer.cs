@@ -71,7 +71,7 @@ namespace SwitchExpressionAnalyzer
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type name &apos;{0}&apos; contains lowercase letters.
+        ///   Looks up a localized string similar to Type name contains lowercase letters.
         /// </summary>
         internal static string AnalyzerMessageFormat {
             get {

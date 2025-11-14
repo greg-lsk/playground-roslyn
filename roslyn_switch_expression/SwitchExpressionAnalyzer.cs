@@ -54,11 +54,7 @@ public class SwitchExpressionAnalyzer : DiagnosticAnalyzer
 
         if (!hasExpressionBody)
         {
-            var diagnostic = Diagnostic.Create(Rule,
-                                               methodDeclarationNode.GetLocation(),
-                                               methodDeclarationNode.Modifiers,
-                                               methodDeclarationNode.Identifier,
-                                               methodDeclarationNode.ParameterList);
+            var diagnostic = Diagnostic.Create(Rule, methodDeclarationNode.GetLocation(), methodDeclarationNode);
 
             context.ReportDiagnostic(diagnostic);
         }
