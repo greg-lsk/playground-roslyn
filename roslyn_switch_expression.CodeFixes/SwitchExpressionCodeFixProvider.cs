@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using System.Composition;
 using System.Linq;
 using System.Threading;
@@ -52,16 +53,19 @@ public class SwitchExpressionCodeFixProvider : CodeFixProvider
 
     private async Task<Document> ToExpressionBodyAsync(Document document, MethodDeclarationSyntax methodDecl, CancellationToken cancellationToken)
     {
-        var invocationExp = methodDecl.Body.ChildNodes().Where(n => n.IsKind(SyntaxKind.InvocationExpression)).FirstOrDefault();
+        var invocationExp = methodDecl.Body.DescendantNodes().Where(n => n.IsKind(SyntaxKind.InvocationExpression)).FirstOrDefault();
 
-        var expressionBody = SyntaxFactory.ArrowExpressionClause(invocationExp as ExpressionSyntax)
-                                          .WithArrowToken(SyntaxFactory.Token(SyntaxKind.GreaterThanEqualsToken));
+        var expressionBody = SyntaxFactory.ArrowExpressionClause(invocationExp as InvocationExpressionSyntax)
+                                          .WithArrowToken(SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken)
+                                                                       .WithTrailingTrivia(SyntaxFactory.TriviaList(SyntaxFactory.Whitespace(" "))));
 
-
-        var newMethodDecl = methodDecl.WithBody(null).WithExpressionBody(expressionBody);
+        var newMethodDecl = methodDecl.RemoveNode(methodDecl.Body, SyntaxRemoveOptions.KeepNoTrivia)
+                                      .WithExpressionBody(expressionBody)
+                                      .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)
+                                                                       .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed));
 
         var oldRoot = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
-        var newRoot = oldRoot.ReplaceNode(methodDecl, newMethodDecl);  
+        var newRoot = oldRoot.ReplaceNode(methodDecl, newMethodDecl);
 
         return document.WithSyntaxRoot(newRoot);
     }
