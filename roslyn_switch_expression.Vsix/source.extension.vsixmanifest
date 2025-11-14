@@ -12,8 +12,8 @@
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
   </Dependencies>
   <Assets>
-    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="roslyn_switch_expression" Path="|roslyn_switch_expression|"/>
-    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="roslyn_switch_expression" Path="|roslyn_switch_expression|"/>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="roslyn_switch_expression.Analyzer" Path="|roslyn_switch_expression.Analyzer|"/>
+    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="roslyn_switch_expression.Analyzer" Path="|roslyn_switch_expression.Analyzer|"/>
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="roslyn_switch_expression.CodeFixes" Path="|roslyn_switch_expression.CodeFixes|"/>
     <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="roslyn_switch_expression.CodeFixes" Path="|roslyn_switch_expression.CodeFixes|"/>
   </Assets>

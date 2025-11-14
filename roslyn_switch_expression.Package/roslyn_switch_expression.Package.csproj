@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\roslyn_switch_expression.CodeFixes\roslyn_switch_expression.CodeFixes.csproj" />
-    <ProjectReference Include="..\roslyn_switch_expression\roslyn_switch_expression.csproj" />
+    <ProjectReference Include="..\roslyn_switch_expression\roslyn_switch_expression.Analyzer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +37,7 @@
 
   <Target Name="_AddAnalyzersToOutput">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="$(OutputPath)\roslyn_switch_expression.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(OutputPath)\roslyn_switch_expression.Analyzer.dll" PackagePath="analyzers/dotnet/cs" />
       <TfmSpecificPackageFile Include="$(OutputPath)\roslyn_switch_expression.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
   </Target>

@@ -3,5 +3,5 @@
   <Project Path="roslyn_switch_expression.Package/roslyn_switch_expression.Package.csproj" />
   <Project Path="roslyn_switch_expression.Test/roslyn_switch_expression.Test.csproj" />
   <Project Path="roslyn_switch_expression.Vsix/roslyn_switch_expression.Vsix.csproj" />
-  <Project Path="roslyn_switch_expression/roslyn_switch_expression.csproj" />
+  <Project Path="roslyn_switch_expression/roslyn_switch_expression.Analyzer.csproj" />
 </Solution>
